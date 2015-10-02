@@ -32,7 +32,7 @@ def parse_mgf(filename,all_peptides,sorted_masses_peptides):
 
 				# todo: compute proper mass based on formula 
 				#total_mass = 
-				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides)				
+				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides, scan_number)				
 
 				continue
 			
