@@ -67,7 +67,7 @@ def binary_error_search(data, item, error):
 	#sequential search right
 	i = cur - 1
 	
-	while(i < len(data) and data[i] >= item - error):
+	while(i >= 0 and data[i] >= item - error):
 		matches.append(data[i])
 		i -= 1
 
@@ -80,11 +80,12 @@ def normalize_data(data):
 	return [(item[0], item[1]/max_value) for item in data]
 
 def main():
-	print(binary_error_search([1,2,3,4,5], 3, 1))
-	print(binary_error_search([1,2,3,4,5], 3, 0))
-	print(binary_error_search([1,2,3,4,5], 3, 2))
-	#parseMgf()
+	parseMgf()
 
 if __name__ == "__main__":
 	main()
 
+#print(binary_error_search([1,2,3,4,5], 3, 1))
+#print(binary_error_search([1,2,3,4,5], 3, 0))
+#print(binary_error_search([1,2,3,4,5], 3, 2))
+	
