@@ -45,9 +45,46 @@ def normalize_data(data):
 	
 	return [(item[0], item[1]/max_value) for item in data]
 
-
 def main():
+	print(binary_error_search([1,2,3,4,5], 3, 1))
+
 	parseMgf()
 
 if __name__ == "__main__":
 	main()
+
+
+def binary_error_search(data, item, error):
+
+	left = 0
+	right = len(data)
+	cur = 0
+
+	while(left < right):
+		
+		cur = (right-left)//2
+
+		if(item > data[cur]):
+			left = cur
+		elif(item < data[cur]):
+			right = cur
+		else 
+			break
+
+	matches = []
+
+	#sequential search left
+	i = cur
+
+	while(data[i] < item + error):
+		matches.append(data[cur])
+		i += 1
+
+	#sequential search right
+	i = cur - 1
+	
+	while(data[i] > item - error):
+		matches.append(data[cur])
+		i += 1
+
+	return matches	
