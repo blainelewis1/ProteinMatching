@@ -50,9 +50,7 @@ def parse_mgf(filename,all_peptides,sorted_masses_peptides):
 
 
 def main():
-	all_peptides = parse_fasta("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
-	#print(all_peptides.keys())
-	
+	all_peptides = parse_fasta("bigger.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]	
 	sorted_masses_peptides = sorted(all_peptides.keys())
 	parse_mgf("test.mgf",all_peptides,sorted_masses_peptides)
 

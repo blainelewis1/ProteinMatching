@@ -33,7 +33,10 @@ def parse_fasta(arg):
 			if line[0:1] != ">":
 				tryp = filter(None, splice(line.strip()))
 				for p in tryp:
+					if("X" in p or "U" in p or "B" in p or "Z" in p):
+						continue
 					massTryp = calculateMasses(p)
+					
 					if massTryp[0] in pepDict:
 						if not repeats(pepDict[massTryp[0]], p):
 							pepDict[massTryp[0]].append((p, massTryp))
