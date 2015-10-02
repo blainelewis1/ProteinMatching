@@ -1,4 +1,4 @@
-
+from process_spectrum import process_spectrum
 
 def parseMgf(filename,all_peptides,sorted_masses_peptides):		
 	with open(filename) as file:
@@ -95,15 +95,3 @@ if __name__ == "__main__":
 #print(binary_error_search([1,2,3,4,5], 3, 1))
 #print(binary_error_search([1,2,3,4,5], 3, 0))
 #print(binary_error_search([1,2,3,4,5], 3, 2))
-	
-score = dict()
-
-for peptide in possible_peptides:
-
-
-	for suffix in peptide:
-
-		y0 = get_possible_matches()
-		for match in matches:
-			#score(match) = score_fuc(match)
-			continue
