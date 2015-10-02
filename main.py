@@ -38,22 +38,6 @@ def parseMgf():
 				data.append((float(tokens[0]), float(tokens[1])))
 
 
-
-
-def normalize_data(data):
-	max_value = max(data, key = lambda item: item[1])[1]
-	
-	return [(item[0], item[1]/max_value) for item in data]
-
-def main():
-	print(binary_error_search([1,2,3,4,5], 3, 1))
-
-	parseMgf()
-
-if __name__ == "__main__":
-	main()
-
-
 def binary_error_search(data, item, error):
 
 	left = 0
@@ -68,7 +52,7 @@ def binary_error_search(data, item, error):
 			left = cur
 		elif(item < data[cur]):
 			right = cur
-		else 
+		else:
 			break
 
 	matches = []
@@ -76,15 +60,31 @@ def binary_error_search(data, item, error):
 	#sequential search left
 	i = cur
 
-	while(data[i] < item + error):
-		matches.append(data[cur])
+	while(i < len(data) and data[i] <= item + error):
+		matches.append(data[i])
 		i += 1
 
 	#sequential search right
 	i = cur - 1
 	
-	while(data[i] > item - error):
-		matches.append(data[cur])
-		i += 1
+	while(i < len(data) and data[i] >= item - error):
+		matches.append(data[i])
+		i -= 1
 
 	return matches	
+
+
+def normalize_data(data):
+	max_value = max(data, key = lambda item: item[1])[1]
+	
+	return [(item[0], item[1]/max_value) for item in data]
+
+def main():
+	print(binary_error_search([1,2,3,4,5], 3, 1))
+	print(binary_error_search([1,2,3,4,5], 3, 0))
+	print(binary_error_search([1,2,3,4,5], 3, 2))
+	#parseMgf()
+
+if __name__ == "__main__":
+	main()
+
