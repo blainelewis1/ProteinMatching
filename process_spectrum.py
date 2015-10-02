@@ -45,7 +45,7 @@ def process_spectrum(mass, spectrum_data, all_peptides, sorted_masses_peptides, 
 	
 
 	if(cur_max_peptide):
-		print(cur_max_peptide[0], cur_max_score, [item[1] for item in possible_peptides], scan_number, sep=',')
+		print(cur_max_peptide[0], cur_max_score, [item[0] for item in possible_peptides], scan_number, sep=',')
 	else:
 		print('None,0,0,0')
 
