@@ -35,7 +35,7 @@ def process_spectrum(mass, spectrum_data, all_peptides, sorted_masses_peptides, 
 
 	possible_peptides = temp_poss_peps
 
-	print(possible_peptides)
+	#print(possible_peptides)
 
 	cur_max_score = 0
 	cur_max_peptide = None
