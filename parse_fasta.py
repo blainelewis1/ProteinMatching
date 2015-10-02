@@ -27,7 +27,7 @@ def repeats(values, p):
 			return True
 	return False
 
-def parseFasta(arg):
+def parse_fasta(arg):
 	with open(arg) as f:
 		for line in f:
 			if line[0:1] != ">":
