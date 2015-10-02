@@ -51,7 +51,8 @@ def parse_mgf(filename,all_peptides,sorted_masses_peptides):
 
 def main():
 	all_peptides = parse_fasta("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
-
+	#print(all_peptides.keys())
+	
 	sorted_masses_peptides = sorted(all_peptides.keys())
 	parse_mgf("test.mgf",all_peptides,sorted_masses_peptides)
 
@@ -62,3 +63,5 @@ if __name__ == "__main__":
 #print(binary_error_search([1,2,3,4,5], 3, 0))
 #print(binary_error_search([1,2,3,4,5], 3, 2))
 #print(binary_error_search([1,2,3,5,6,7,8,9], 4, 0))
+#print(binary_error_search([0,1,2,8,9,10], 5, 0.5))
+#print(binary_error_search([0,1,2,8,9,10], 5, 3))

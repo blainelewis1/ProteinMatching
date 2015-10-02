@@ -19,19 +19,27 @@ def binary_error_search(data, item, error):
 
 	matches = []
 
+	#print(cur, data[cur], item)
+
 	#sequential search left
 	i = cur
-
-	while(i < len(data) and data[i] <= item + error):
-		matches.append(data[i])
-		i += 1
+	if data[i] >= item - error:				
+		while(i < len(data) and data[i] <= item + error):
+			matches.append(data[i])
+			i += 1
 
 	#sequential search right
 	i = cur - 1
 	
-	while(i >= 0 and data[i] >= item - error):
-		matches.append(data[i])
-		i -= 1
+	if data[i] >= item - error:
+	
+		while(i >= 0 and data[i] >= item - error):
+			matches.append(data[i])
+			i -= 1
+
+	#for match in matches:
+		#print(match, "<=", item + error,  "and", match ,">=", item - error)
+		#assert(match <= item + error and match >= item - error)
 
 	return matches	
 
