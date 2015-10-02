@@ -8,7 +8,7 @@ def process_spectrum(mass, spectrum_data, all_peptides, sorted_masses_peptides):
 	scores = dict()
 
 	spectrum_masses = [item[0] for item in range(len(spectrum_data))]
-	spectrum_data = {item[0] -> item[1] for item in range(len(spectrum_data))}
+	spectrum_data = {item[0]: item[1] for item in range(len(spectrum_data))}
 
 	for peptide in all_peptides:
 		

@@ -1,4 +1,5 @@
 from process_spectrum import process_spectrum
+from parse_fasta import parse_fasta
 
 def parseMgf(filename,all_peptides,sorted_masses_peptides):		
 	with open(filename) as file:
