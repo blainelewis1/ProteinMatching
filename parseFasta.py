@@ -27,8 +27,8 @@ def repeats(values, p):
 			return True
 	return False
 
-def parseFasta():
-	with open('ups.fasta') as f:
+def parseFasta(arg):
+	with open(arg) as f:
 		for line in f:
 			if line[0:1] != ">":
 				tryp = filter(None, splice(line.strip()))
@@ -39,8 +39,3 @@ def parseFasta():
 							pepDict[massTryp[0]].append((p, massTryp))
 					else:
 						pepDict[massTryp[0]] = [(p, massTryp)]
-	print pepDict
-
-parseFasta()
-
-
