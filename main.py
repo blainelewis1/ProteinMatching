@@ -1,7 +1,7 @@
 
 
-def parseMgf():		
-	with open('test.mgf') as file:
+def parseMgf(filename,all_peptides,sorted_masses_peptides):		
+	with open(filename) as file:
 		scan_number = 0
 		total_mass = 0
 
@@ -20,13 +20,18 @@ def parseMgf():
 				continue
 			
 			elif line.startswith("PEPMASS"):
-				total_mass = float(line.split("=")[1])
+				total_mass = float(line.split("=")[1]) # is this peptide mass?
 			
 			elif line == "END IONS":
 				# TODO process
 				# normalize data
 				data = normalize_data(data)
-				process_spectrum(total_mass, data, dictionary)				
+				
+
+				# todo: compute proper mass based on formula 
+				total_mass = 
+				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides)				
+
 				continue
 			
 			elif line.startswith("SCANS"):
@@ -80,7 +85,9 @@ def normalize_data(data):
 	return [(item[0], item[1]/max_value) for item in data]
 
 def main():
-	parseMgf()
+	all_peptides = parseFASTA("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
+	sorted_masses_peptides = sorted(all_peptides.keys())
+	parseMgf("test.mgf",all_peptides,sorted_masses_peptides)
 
 if __name__ == "__main__":
 	main()
@@ -89,3 +96,20 @@ if __name__ == "__main__":
 #print(binary_error_search([1,2,3,4,5], 3, 0))
 #print(binary_error_search([1,2,3,4,5], 3, 2))
 	
+score = dict()
+
+for peptide in possible_peptides:
+
+
+	for suffix in peptide:
+
+		y0 = get_possible_matches()
+		for(match in matches)
+		score(match) = score_fuc(match)
+
+
+
+def process_spectrum(mass, spectrum_data, all_peptides):
+	possible_peptides = binary_error_search(sorted(all_peptides.keys()), mass, 0.5)
+	for peptide in all_peptides:
+		for 
