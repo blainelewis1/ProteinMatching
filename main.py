@@ -5,7 +5,8 @@ from utils import *
 def parse_mgf(filename,all_peptides,sorted_masses_peptides):		
 	with open(filename) as file:
 		scan_number = 0
-		total_mass = 0
+		pep_mass = 0
+		charge = 0
 
 		spectrum_data = []
 
@@ -18,29 +19,32 @@ def parse_mgf(filename,all_peptides,sorted_masses_peptides):
 				spectrum_data = []
 				total_mass = 0
 			
-			elif not line or line.startswith("TITLE") or line.startswith("CHARGE") or line.startswith("RTINSECONDS"):
+			elif not line or line.startswith("TITLE") or line.startswith("RTINSECONDS"):
 				continue
+
+			elif line.startswith("CHARGE"):
+				charge = int(line.split("=")[1][0])
 			
 			elif line.startswith("PEPMASS"):
-				total_mass = float(line.split("=")[1]) # is this peptide mass?
+				pep_mass = float(line.split("=")[1]) # is this peptide mass?
 			
 			elif line == "END IONS":
 				# TODO process
 				# normalize data
 				spectrum_data = normalize_data(spectrum_data)
 				
-
 				# todo: compute proper mass based on formula 
-				#total_mass = 
-				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides, scan_number)				
+				total_mass = (pep_mass + 18.01)/charge + 1.007
 
-				continue
+				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides, scan_number)						
+
 			
 			elif line.startswith("SCANS"):
 				scan_number = line.split("=")[1]
 
 			else:
 				tokens = line.split(" ")
+
 				spectrum_data.append((float(tokens[0]), float(tokens[1])))
 
 
