@@ -20,9 +20,9 @@ def parseTestFile():
 def remove_dat_hoohah(testpeptide):
 	return testpeptide.replace("(+57.02)","")
 
-def parseResultsFile():
+def parseResultsFile(filename):
 	resultpeps = {}
-	with open('result.tsv','rt') as csvfile:
+	with open(filename,'rt') as csvfile:
 		resread = csv.reader(csvfile,delimiter='\t')
 		for row in resread:
 			if(row[0] != 'None'):
@@ -35,19 +35,32 @@ def parseResultsFile():
 
 def main():
 	test_scanpeps = parseTestFile() # e.g. ['399', 'CCAAADPHECYAK']
-	result_peps = parseResultsFile() # e.g. ['521', 'TK', ['TK']]
+	
+	test_filename = 'result.tsv'#'big_results.tsv'
+	result_peps = parseResultsFile(test_filename) # e.g. ['521', 'TK', ['TK']]
 
-	count = 0
+	count_correct = 0
+	count_fp_nones = 0
+	count_fp_mismatch = 0
+	count_fn = 0
 	for result in result_peps:
-		# false positives
-		if(result_peps[result][0] != test_scanpeps.get(result,None)):
-			count += 1
-			print(count,result,result_peps[result],test_scanpeps.get(result,None))
-	for scans in test_scanpeps:
-		# false negatives
-		if(result_peps.get(scans,None) == None):
-			count += 1
-			print(count,test_scanpeps.get(scans,None))
+		if(result_peps[result][0] == test_scanpeps.get(result,None)):
+			count_correct = count_correct + 1
+		# elif(result_peps[result][0] != test_scanpeps.get(result,None)):
+		# 	if(test_scanpeps.get(result,None) == None)
+
+
+	print('Number we got right: %d', count_correct)
+	print('Number total in test data: %d', len(test_scanpeps))
+	# 	# false positives
+	# 	if(result_peps[result][0] != test_scanpeps.get(result,None)):
+	# 		count += 1
+	# 		print(count,result,result_peps[result],test_scanpeps.get(result,None))
+	# for scans in test_scanpeps:
+	# 	# false negatives
+	# 	if(result_peps.get(scans,None) == None):
+	# 		count += 1
+	# 		print(count,test_scanpeps.get(scans,None))
 
 
 
