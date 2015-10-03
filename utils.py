@@ -3,7 +3,7 @@ import math
 def binary_error_search(data, item, error):
 
 	left = 0
-	right = len(data)
+	right = len(data)-1
 	cur = 0
 
 	while(left <= right):

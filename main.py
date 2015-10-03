@@ -34,7 +34,7 @@ def parse_mgf(filename,all_peptides,sorted_masses_peptides):
 				spectrum_data = normalize_data(spectrum_data)
 				
 				# todo: compute proper mass based on formula 
-				total_mass = (pep_mass + 18.01)/charge + 1.007
+				total_mass = (pep_mass - 1.007)*charge - 18.01
 
 				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides, scan_number)						
 
