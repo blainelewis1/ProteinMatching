@@ -1,6 +1,7 @@
+from process_spectrum import process_spectrum
+from parse_fasta import parse_fasta
 
-
-def parseMgf(filename,all_peptides,sorted_masses_peptides):		
+def parse_mgf(filename,all_peptides,sorted_masses_peptides):		
 	with open(filename) as file:
 		scan_number = 0
 		pep_mass = 0
@@ -89,10 +90,9 @@ def normalize_data(data):
 	return [(item[0], item[1]/max_value) for item in data]
 
 def main():
-	all_peptides = parseFasta("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
+	all_peptides = parse_fasta("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
 	sorted_masses_peptides = sorted(all_peptides.keys())
-	parseMgf("test.mgf",all_peptides,sorted_masses_peptides)
-	# parseMgf("test.mgf",0,0)
+	parse_mgf("test.mgf",all_peptides,sorted_masses_peptides)
 
 if __name__ == "__main__":
 	main()
@@ -100,15 +100,3 @@ if __name__ == "__main__":
 #print(binary_error_search([1,2,3,4,5], 3, 1))
 #print(binary_error_search([1,2,3,4,5], 3, 0))
 #print(binary_error_search([1,2,3,4,5], 3, 2))
-	
-score = dict()
-
-for peptide in possible_peptides:
-
-
-	for suffix in peptide:
-
-		y0 = get_possible_matches()
-		for match in matches:
-			#score(match) = score_fuc(match)
-			continue
