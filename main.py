@@ -3,7 +3,8 @@
 def parseMgf(filename,all_peptides,sorted_masses_peptides):		
 	with open(filename) as file:
 		scan_number = 0
-		total_mass = 0
+		pep_mass = 0
+		charge = 0
 
 		data = []
 
@@ -14,22 +15,25 @@ def parseMgf(filename,all_peptides,sorted_masses_peptides):
 				#TODO
 				scan_number = 0
 				data = []
-				total_mass = 0
+				pep_mass = 0
+				charge = 0
 			
-			elif line.startswith("TITLE") or line.startswith("CHARGE") or line.startswith("RTINSECONDS"):
+			elif line.startswith("TITLE") or line.startswith("RTINSECONDS"):
 				continue
+
+			elif line.startswith("CHARGE"):
+				charge = int(line.split("=")[1][0])
 			
 			elif line.startswith("PEPMASS"):
-				total_mass = float(line.split("=")[1]) # is this peptide mass?
+				pep_mass = float(line.split("=")[1]) # is this peptide mass?
 			
 			elif line == "END IONS":
 				# TODO process
 				# normalize data
 				data = normalize_data(data)
 				
-
 				# todo: compute proper mass based on formula 
-				#total_mass = 
+				total_mass = (pep_mass + 18.01)/charge + 1.007
 				process_spectrum(total_mass, spectrum_data, all_peptides, sorted_masses_peptides)				
 
 				continue
@@ -39,7 +43,7 @@ def parseMgf(filename,all_peptides,sorted_masses_peptides):
 
 			else:
 				tokens = line.split(" ")
-				print(tokens)
+				# print(tokens)
 				data.append((float(tokens[0]), float(tokens[1])))
 
 
@@ -88,6 +92,7 @@ def main():
 	all_peptides = parseFasta("ups.fasta") # is a dictionary in the form of ... mass -> [(string,suffixMasses),...]
 	sorted_masses_peptides = sorted(all_peptides.keys())
 	parseMgf("test.mgf",all_peptides,sorted_masses_peptides)
+	# parseMgf("test.mgf",0,0)
 
 if __name__ == "__main__":
 	main()
