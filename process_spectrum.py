@@ -6,7 +6,20 @@ ERROR = 0.5
 
 def process_spectrum(mass, spectrum_data, all_peptides, sorted_masses_peptides, scan_number):
 
+	count = 0
+	matches = []
+
+
+	for peptide_mass in all_peptides.keys():
+		if mass - 0.5 <= peptide_mass and mass + 0.5 >= peptide_mass:
+			count += 1
+			matches.append(peptide_mass)
+
 	possible_peptides = binary_error_search(sorted_masses_peptides, mass, 0.5)
+
+	#print(possible_peptides, matches)
+	#print(len(possible_peptides), count)
+	#assert(len(possible_peptides) == count)
 
 	scores = dict()
 
@@ -45,9 +58,9 @@ def process_spectrum(mass, spectrum_data, all_peptides, sorted_masses_peptides, 
 	
 
 	if(cur_max_peptide):
-		print(cur_max_peptide[0], cur_max_score, [item[0] for item in possible_peptides], scan_number, sep=',')
+		print(cur_max_peptide[0], cur_max_score, [item[0] for item in possible_peptides], scan_number, sep='\t')
 	else:
-		print('None,0,0,0')
+		print('None\t0\t0\t0')
 
 
 	return cur_max_peptide
