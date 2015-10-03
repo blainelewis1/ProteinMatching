@@ -3,7 +3,7 @@ import math
 def binary_error_search(data, item, error):
 
 	left = 0
-	right = len(data)
+	right = len(data)-1
 	cur = 0
 
 	while(left <= right):
@@ -23,23 +23,21 @@ def binary_error_search(data, item, error):
 
 	#sequential search left
 	i = cur
-	if data[i] >= item - error:				
-		while(i < len(data) and data[i] <= item + error):
+	while(i < len(data) and data[i] <= item + error):
+		if data[i] >= item - error:				
 			matches.append(data[i])
-			i += 1
+		i += 1
 
 	#sequential search right
 	i = cur - 1
-	
-	if data[i] >= item - error:
-	
-		while(i >= 0 and data[i] >= item - error):
+	while(i >= 0 and data[i] >= item - error):
+		if data[i] >= item - error:
 			matches.append(data[i])
-			i -= 1
+		i -= 1
 
 	#for match in matches:
-		#print(match, "<=", item + error,  "and", match ,">=", item - error)
-		#assert(match <= item + error and match >= item - error)
+	#	print(match, "<=", item + error,  "and", match ,">=", item - error)
+	#	assert(match <= item + error and match >= item - error)
 
 	return matches	
 
