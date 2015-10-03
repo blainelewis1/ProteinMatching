@@ -46,11 +46,21 @@ def main():
 	for result in result_peps:
 		if(result_peps[result][0] == test_scanpeps.get(result,None)):
 			count_correct = count_correct + 1
-		# elif(result_peps[result][0] != test_scanpeps.get(result,None)):
-		# 	if(test_scanpeps.get(result,None) == None)
+		else:
+			if(test_scanpeps.get(result,None) == None):
+				count_fp_nones = count_fp_nones + 1
+			else:
+				count_fp_mismatch = count_fp_mismatch + 1
+				print(count_correct,result,result_peps[result],test_scanpeps.get(result,None))
+	for scan in test_scanpeps:
+		if(result_peps.get(scan,None) == None):
+			count_fn = count_fn + 1
 
 
 	print('Number we got right: %d', count_correct)
+	print('Number we got, test has none: %d', count_fp_nones)
+	print('Number we got, test has different: %d', count_fp_mismatch)
+	print('Number we aint got, test has: %d', count_fn)
 	print('Number total in test data: %d', len(test_scanpeps))
 	# 	# false positives
 	# 	if(result_peps[result][0] != test_scanpeps.get(result,None)):
