@@ -4,47 +4,51 @@ import csv
 import ast
 
 def parseTestFile():
-	testscanpeps = []
-	dict_testscanpeps = {}
+	testscanpeps = {}
 	# size = 0
 	with open('commercial.csv','rt') as csvfile:
 		testread = csv.reader(csvfile,delimiter=',')
 		next(testread)
 		for row in testread:
-			# print(row)
-			# print(row[0])
 			testpeptide = remove_dat_hoohah(row[0])
 			scannum = row[6]
-			print(testpeptide)
-			# print(scannum)
-			testscanpeps.append([scannum,testpeptide])
-			# size = size + 1
-			# assert size == len(testscanpeps)
-			dict_testscanpeps[scannum] = len(testscanpeps)
+			testscanpeps[scannum] = testpeptide
+			# print(testpeptide)
 
-	return testscanpeps, dict_testscanpeps
+	return testscanpeps
 
 def remove_dat_hoohah(testpeptide):
 	return testpeptide.replace("(+57.02)","")
 
 def parseResultsFile():
-	resultpeps = []
-	with open('results.tsv','rt') as csvfile:
+	resultpeps = {}
+	with open('result.tsv','rt') as csvfile:
 		resread = csv.reader(csvfile,delimiter='\t')
 		for row in resread:
 			if(row[0] != 'None'):
 				chosenpep = row[0]
 				candidatepep = ast.literal_eval(row[2])
 				scan = row[3]
-				# print(scan)
-				resultpeps.append([scan,chosenpep,candidatepep])
+				resultpeps[scan] = [chosenpep,candidatepep]
+
 	return resultpeps
 
 def main():
-	test_scanpeps,dict_testscanpeps = parseTestFile()
-	result_peps = parseResultsFile()
+	test_scanpeps = parseTestFile() # e.g. ['399', 'CCAAADPHECYAK']
+	result_peps = parseResultsFile() # e.g. ['521', 'TK', ['TK']]
 
-	for result in resultpeps
+	count = 0
+	for result in result_peps:
+		# false positives
+		if(result_peps[result][0] != test_scanpeps.get(result,None)):
+			count += 1
+			print(count,result,result_peps[result],test_scanpeps.get(result,None))
+	for scans in test_scanpeps:
+		# false negatives
+		if(result_peps.get(scans,None) == None):
+			count += 1
+			print(count,test_scanpeps.get(scans,None))
+
 
 
 if __name__ == "__main__":
